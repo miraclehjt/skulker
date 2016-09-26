@@ -12,10 +12,13 @@ public class Module {
     private static final String OUT = "copier/module/out/";
     private static final String[] TYPES = {"Ctrl", "Model", "Service", "ServiceImpl", "Dao", "DaoImpl"};
 
-    public static void main(String[] args) throws IOException {
-        copy("HelloWorld", "org.lpw.skulker.demo");
-    }
-
+    /**
+     * 生成标准功能模块。
+     *
+     * @param module 模块名。
+     * @param pkg    包名，不包含模块名。
+     * @throws IOException 未处理IO读写异常。
+     */
     public static void copy(String module, String pkg) throws IOException {
         Copier.init(OUT);
         Map<String, String> map = new HashMap<>();

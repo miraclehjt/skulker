@@ -3,6 +3,20 @@
 # 生成标准功能模块
 生成Controller、Model、Service、Dao等文件，并且限定Dao仅允许本包访问。如：
 ```java
-copy("HelloWorld", "org.lpw.skulker.demo");
+package org.lpw.skulker;
+
+import org.lpw.skulker.copier.Module;
+
+import java.io.IOException;
+
+/**
+ * @auth lpw
+ */
+public class Demo {
+    public static void main(String[] args) throws IOException {
+        // 生成标准功能模块。
+        Module.copy("HelloWorld", "org.lpw.skulker.demo");
+    }
+}
 ```
 将自动生成HelloWorldCtrl、HelloWorldModel、HelloWorldService、HelloWorldServiceImpl、HelloWorldDao、HelloWorldDaoImpl等类。
