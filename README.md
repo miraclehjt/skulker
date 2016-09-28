@@ -15,25 +15,8 @@ import java.io.IOException;
 public class Demo {
     public static void main(String[] args) throws IOException {
         // 生成标准功能模块。
-        Module.copy("HelloWorld", "org.lpw.skulker.demo");
+        Module.copy("HelloWorld", "org.lpw.skulker.demo", null, null);
     }
 }
 ```
-将自动生成HelloWorldCtrl、HelloWorldModel、HelloWorldService、HelloWorldServiceImpl、HelloWorldDao、HelloWorldDaoImpl等类，其包名为org.lpw.skulker.demo.helloworld。如：
-```java
-package org.lpw.skulker;
-
-import org.lpw.skulker.copier.Module;
-
-import java.io.IOException;
-
-/**
- * @auth lpw
- */
-public class Demo {
-    public static void main(String[] args) throws IOException {
-        // 生成标准功能模块。
-        Module.copy("HelloWorld", "org.lpw.skulker.demo", "org.lpw.tephra.dao.model");
-    }
-}
-```
+将自动生成HelloWorldCtrl、HelloWorldModel、HelloWorldService、HelloWorldServiceImpl、HelloWorldDao、HelloWorldDaoImpl等类，其包名为org.lpw.skulker.demo.helloworld。
