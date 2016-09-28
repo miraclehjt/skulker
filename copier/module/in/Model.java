@@ -1,6 +1,6 @@
 package PACKAGE4.PACKAGE3.PACKAGE2.PACKAGE1.PACKAGE0;
 
-import org.lpw.tephra.dao.model.ModelSupport;
+import MODEL_SUPPORT.ModelSupport;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

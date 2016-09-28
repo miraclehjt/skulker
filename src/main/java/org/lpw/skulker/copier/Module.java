@@ -15,12 +15,14 @@ public class Module {
     /**
      * 生成标准功能模块。
      *
-     * @param module 模块名。
-     * @param pkg    包名，不包含模块名。
+     * @param module       模块名。
+     * @param pkg          包名，不包含模块名。
+     * @param modelSupport ModelSupport包名。
      * @throws IOException 未处理IO读写异常。
      */
-    public static void copy(String module, String pkg) throws IOException {
-        Copier.init(OUT);
+    public static void copy(String module, String pkg, String modelSupport) throws IOException {
+        String out = OUT + module.toLowerCase() + "/";
+        Copier.init(out);
         Map<String, String> map = new HashMap<>();
         map.put("MODULE", module);
         map.put("mODULE", module.substring(0, 1).toLowerCase() + module.substring(1));
@@ -41,6 +43,8 @@ public class Module {
         for (int i = 0; i < packages.length; i++)
             map.put("PACKAGE" + (packages.length - i), packages[i]);
         for (String type : TYPES)
-            Copier.copy(IN + type + ".java", OUT + module + type + ".java", map);
+            Copier.copy(IN + type + ".java", out + module + type + ".java", map);
+
+        map.put("MODEL_SUPPORT", modelSupport);
     }
 }

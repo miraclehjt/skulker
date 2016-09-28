@@ -21,25 +21,19 @@ public class Demo {
 ```
 将自动生成HelloWorldCtrl、HelloWorldModel、HelloWorldService、HelloWorldServiceImpl、HelloWorldDao、HelloWorldDaoImpl等类，其包名为org.lpw.skulker.demo.helloworld。如：
 ```java
-package org.lpw.skulker.demo.helloworld;
+package org.lpw.skulker;
 
-import org.lpw.tephra.dao.model.ModelSupport;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.lpw.skulker.copier.Module;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.io.IOException;
 
 /**
- * @author lpw
+ * @auth lpw
  */
-@Component(HelloWorldModel.NAME + ".model")
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
-@Entity(name = HelloWorldModel.NAME)
-@Table(name = "t_demo_hello_world")
-public class HelloWorldModel extends ModelSupport {
-    static final String NAME = "skulker.demo.hello-world";
+public class Demo {
+    public static void main(String[] args) throws IOException {
+        // 生成标准功能模块。
+        Module.copy("HelloWorld", "org.lpw.skulker.demo", "org.lpw.tephra.dao.model");
+    }
 }
 ```

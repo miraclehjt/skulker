@@ -10,6 +10,6 @@ import java.io.IOException;
 public class Demo {
     public static void main(String[] args) throws IOException {
         // 生成标准功能模块。
-        Module.copy("HelloWorld", "org.lpw.skulker.demo");
+        Module.copy("HelloWorld", "org.lpw.skulker.demo", "org.lpw.tephra.dao.model");
     }
 }
