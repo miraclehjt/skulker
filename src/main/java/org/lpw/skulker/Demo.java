@@ -11,6 +11,8 @@ public class Demo {
     public static void main(String[] args) throws IOException {
         // 生成标准功能模块。
         Module.copy("HelloWorld", "org.lpw.skulker.demo", null, null,
-                new String[][]{{"c_name", "String"}, {"c_time", "java.sql.Timestamp"}});
+                new String[][]{{"c_name", "VARCHAR(255)", "k", "名称"},
+                        {"c_type", "INT", "", "类型"},
+                        {"c_time", "DATETIME", "", "时间"}});
     }
 }
