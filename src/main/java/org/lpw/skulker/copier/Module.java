@@ -65,8 +65,13 @@ public class Module {
     }
 
     protected static void getterSetter(Map<String, String> map, String[][] columns) {
-        if (columns == null)
+        if (columns == null) {
+            map.put("MODEL_IMPORT", "");
+            map.put("MODEL_FIELD", "");
+            map.put("MODEL_GS", "");
+
             return;
+        }
 
         Set<String> types = new HashSet<>();
         StringBuilder fields = new StringBuilder();
