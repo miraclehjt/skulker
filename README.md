@@ -15,7 +15,8 @@ import java.io.IOException;
 public class Demo {
     public static void main(String[] args) throws IOException {
         // 生成标准功能模块。
-        Module.copy("HelloWorld", "org.lpw.skulker.demo", null, null);
+        Module.copy("HelloWorld", "org.lpw.skulker.demo", null, null,
+                new String[][]{{"c_name", "String"}, {"c_time", "java.sql.Timestamp"}});
     }
 }
 ```
