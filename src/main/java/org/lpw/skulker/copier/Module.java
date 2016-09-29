@@ -31,7 +31,7 @@ public class Module {
      * @param pkg          包名，不包含模块名。
      * @param tephra       Tephra包名，为null则使用默认（org.lpw.tephra）。
      * @param modelSupport ModelSupport包名，为null则使用默认（org.lpw.tephra.dao.model）。
-     * @param columns      字段集；二维数组，每行元素依次为：字段名、类型、索引（k-索引）、说明。
+     * @param columns      字段集；二维数组，每行元素依次为：字段名、类型、设置（k-索引、n-不为NULL）、说明。
      * @throws IOException 未处理IO读写异常。
      */
     public static void copy(String module, String pkg, String tephra, String modelSupport, String[][] columns) throws IOException {
@@ -98,10 +98,10 @@ public class Module {
                     .replaceAll("UPPER", upper).replaceAll("NAME", name));
 
             ddlColumns.append("\n  ").append(columns[i][0]).append(' ').append(columns[i][1]).append(' ');
-            if (type.equals("int"))
+            if (type.equals("int") || type.equals("long") || type.equals("double"))
                 ddlColumns.append("DEFAULT 0");
             else
-                ddlColumns.append(columns[i][2].equals("k") ? "NOT" : "DEFAULT").append(" NULL");
+                ddlColumns.append(columns[i][2].equals("k") || columns[i][2].equals("n") ? "NOT" : "DEFAULT").append(" NULL");
             ddlColumns.append(" COMMENT '").append(columns[i][3]).append("',");
             if (columns[i][2].equals("k")) {
                 ddlKeys.append(",\n  KEY k_").append(map.get("PACKAGE1")).append('_').append(map.get("MODULE_"))
@@ -139,7 +139,7 @@ public class Module {
         if (lower.contains("bigint") || lower.contains("long"))
             return "long";
 
-        if (lower.contains("int") || lower.contains("integer"))
+        if (lower.contains("int"))
             return "int";
 
         if (lower.contains("float") || lower.contains("double"))
