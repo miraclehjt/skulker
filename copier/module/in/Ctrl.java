@@ -1,12 +1,12 @@
-package PACKAGE4.PACKAGE3.PACKAGE2.PACKAGE1.PACKAGE0;
+package ${pkg}.${module?lower_case};
 
-import TEPHRA.ctrl.execute.Execute;
+import ${tephra}.ctrl.execute.Execute;
 import org.springframework.stereotype.Controller;
 
 /**
  * @author lpw
  */
-@Controller(MODULEModel.NAME + ".ctrl")
-@Execute(name = "/PACKAGE1/MODULE-/", code = "0")
-public class MODULECtrl {
+@Controller(${module}Model.NAME + ".ctrl")
+@Execute(name = "<#list packages as pkg><#if (pkg_index>2)>/${pkg}</#if></#list>/${module_name?replace("_","-")}/", code = "0")
+public class ${module}Ctrl {
 }

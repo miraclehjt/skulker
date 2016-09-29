@@ -1,7 +1,7 @@
-package PACKAGE4.PACKAGE3.PACKAGE2.PACKAGE1.PACKAGE0;
+package ${pkg}.${module?lower_case};
 
 /**
  * @author lpw
  */
-interface MODULEDao {
+interface ${module}Dao {
 }

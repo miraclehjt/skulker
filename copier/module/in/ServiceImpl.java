@@ -1,4 +1,4 @@
-package PACKAGE4.PACKAGE3.PACKAGE2.PACKAGE1.PACKAGE0;
+package ${pkg}.${module?lower_case};
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 /**
  * @author lpw
  */
-@Service(MODULEModel.NAME + ".service")
-public class MODULEServiceImpl implements MODULEService {
+@Service(${module}Model.NAME + ".service")
+public class ${module}ServiceImpl implements ${module}Service {
     @Autowired
-    protected MODULEDao mODULEDao;
+    protected ${module}Dao ${moduleName}Dao;
 }

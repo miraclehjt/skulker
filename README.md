@@ -1,4 +1,4 @@
-偷懒（代码生成）工具，主要用于生成开发过程中标准的文件，采用模板替换的方式实现。
+偷懒工具（代码生成），主要用于生成开发过程中标准的文件，采用FreeMarker模板实现。
 
 # 生成标准功能模块
 生成Controller、Model、Service、Dao、DDL等文件，并且限定Dao仅允许本包访问。如：
@@ -15,10 +15,10 @@ import java.io.IOException;
 public class Demo {
     public static void main(String[] args) throws IOException {
         // 生成标准功能模块。
-        Module.copy("HelloWorld", "org.lpw.skulker.demo", null, null,
+        Module.parse("HelloWorld", "org.lpw.skulker.demo", null, null,
                 new String[][]{{"c_name", "VARCHAR(255)", "k", "名称"},
-                        {"c_type", "INT", "", "类型"},
-                        {"c_time", "DATETIME", "", "时间"}});
+                        {"c_type", "int", "", "类型"},
+                        {"c_time", "DateTime", "", "时间"}});
     }
 }
 ```
@@ -48,7 +48,7 @@ import java.sql.Timestamp;
 @Entity(name = HelloWorldModel.NAME)
 @Table(name = "t_demo_hello_world")
 public class HelloWorldModel extends ModelSupport {
-    static final String NAME = "skulker.demo.hello-world";
+    static final String NAME = "demo.hello-world";
 
     private String name; // 名称
     private int type; // 类型

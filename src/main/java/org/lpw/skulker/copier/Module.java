@@ -1,10 +1,9 @@
 package org.lpw.skulker.copier;
 
+import org.lpw.skulker.util.FreeMarker;
+
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @auth lpw
@@ -13,16 +12,6 @@ public class Module {
     private static final String IN = "copier/module/in/";
     private static final String OUT = "copier/module/out/";
     private static final String[] TYPES = {"Ctrl", "Model", "Service", "ServiceImpl", "Dao", "DaoImpl"};
-    private static final String GETTER_SETTER = "\n" +
-            "    @Jsonable\n" +
-            "    @Column(name = \"COLUMN\")\n" +
-            "    public TYPE getUPPER() {\n" +
-            "        return NAME;\n" +
-            "    }\n" +
-            "\n" +
-            "    public void setUPPER(TYPE NAME) {\n" +
-            "        this.NAME = NAME;\n" +
-            "    }";
 
     /**
      * 生成标准功能模块。
@@ -34,89 +23,64 @@ public class Module {
      * @param columns      字段集；二维数组，每行元素依次为：字段名、类型、设置（k-索引、n-不为NULL）、说明。
      * @throws IOException 未处理IO读写异常。
      */
-    public static void copy(String module, String pkg, String tephra, String modelSupport, String[][] columns) throws IOException {
+    public static void parse(String module, String pkg, String tephra, String modelSupport, String[][] columns) throws IOException {
         String out = OUT + module.toLowerCase() + "/";
         Copier.init(out);
-        Map<String, String> map = new HashMap<>();
-        map.put("MODULE", module);
-        map.put("mODULE", module.substring(0, 1).toLowerCase() + module.substring(1));
-        StringBuilder sb = new StringBuilder();
+        Map<String, Object> map = new HashMap<>();
+
+        StringBuilder name = new StringBuilder();
         for (char ch : module.toCharArray()) {
             if (ch >= 'A' && ch <= 'Z') {
                 ch += 'a' - 'A';
-                if (sb.length() > 0)
-                    sb.append('-');
+                if (name.length() > 0)
+                    name.append('_');
             }
-            sb.append(ch);
+            name.append(ch);
         }
-        map.put("MODULE-", sb.toString());
-        map.put("MODULE_", sb.toString().replace('-', '_'));
-
-        map.put("PACKAGE0", module.toLowerCase());
-        String[] packages = pkg.split("\\.");
-        for (int i = 0; i < packages.length; i++)
-            map.put("PACKAGE" + (packages.length - i), packages[i]);
-
-        map.put("TEPHRA", tephra == null ? "org.lpw.tephra" : tephra);
-        map.put("MODEL_SUPPORT", modelSupport == null ? "org.lpw.tephra.dao.model" : modelSupport);
+        map.put("module", module);
+        map.put("moduleName", module.substring(0, 1).toLowerCase() + module.substring(1));
+        map.put("module_name", name.toString());
+        map.put("pkg", pkg);
+        map.put("packages", pkg.split("\\."));
+        map.put("tephra", tephra == null ? "org.lpw.tephra" : tephra);
+        map.put("modelSupport", modelSupport == null ? "org.lpw.tephra.dao.model" : modelSupport);
         model(map, columns);
 
         for (String type : TYPES)
-            Copier.copy(IN + type + ".java", out + module + type + ".java", map);
-        Copier.copy(IN + "ddl.sql", out + "ddl.sql", map);
+            FreeMarker.process(IN, type + ".java", out + module + type + ".java", map);
+        FreeMarker.process(IN, "ddl.sql", out + "ddl.sql", map);
     }
 
-    protected static void model(Map<String, String> map, String[][] columns) {
-        if (columns == null) {
-            map.put("MODEL_IMPORT", "");
-            map.put("MODEL_FIELD", "");
-            map.put("MODEL_GS", "");
-            map.put("COLUMNS", "");
-            map.put("KEYS", "");
-
+    protected static void model(Map<String, Object> map, String[][] columns) {
+        if (columns == null || columns.length == 0)
             return;
-        }
 
         Set<String> types = new HashSet<>();
-        StringBuilder fields = new StringBuilder();
-        StringBuilder gs = new StringBuilder();
-        StringBuilder ddlColumns = new StringBuilder();
-        StringBuilder ddlKeys = new StringBuilder();
+        List<Column> list = new ArrayList<>();
         for (int i = 0; i < columns.length; i++) {
-            String name = getName(columns[i][0]);
-            String type = getType(columns[i][1]);
-            int indexOf = type.lastIndexOf('.');
+            Column column = new Column();
+            column.setName(columns[i][0]);
+            column.setField(getName(column.getName()));
+            column.setMethod(column.getField().substring(0, 1).toUpperCase() + column.getField().substring(1));
+            column.setType(columns[i][1]);
+            column.setJavaType(getType(columns[i][1]));
+            int indexOf = column.getJavaType().lastIndexOf('.');
             if (indexOf > -1) {
-                types.add(type);
-                type = type.substring(indexOf + 1);
+                types.add(column.getJavaType());
+                column.setJavaType(column.getJavaType().substring(indexOf + 1));
             }
-            fields.append("\n    private ").append(type).append(' ').append(name).append("; // ").append(columns[i][3]);
-            String upper = name.substring(0, 1).toUpperCase() + name.substring(1);
-            if (gs.length() > 0)
-                gs.append('\n');
-            gs.append(GETTER_SETTER.replaceAll("COLUMN", columns[i][0]).replaceAll("TYPE", type)
-                    .replaceAll("UPPER", upper).replaceAll("NAME", name));
-
-            ddlColumns.append("\n  ").append(columns[i][0]).append(' ').append(columns[i][1]).append(' ');
-            if (type.equals("int") || type.equals("long") || type.equals("double"))
-                ddlColumns.append("DEFAULT 0");
-            else
-                ddlColumns.append(columns[i][2].equals("k") || columns[i][2].equals("n") ? "NOT" : "DEFAULT").append(" NULL");
-            ddlColumns.append(" COMMENT '").append(columns[i][3]).append("',");
             if (columns[i][2].equals("k")) {
-                ddlKeys.append(",\n  KEY k_").append(map.get("PACKAGE1")).append('_').append(map.get("MODULE_"))
-                        .append('_').append(columns[i][0].startsWith("c_") ? columns[i][0].substring(2) : columns[i][0])
-                        .append('(').append(columns[i][0]).append(')');
-            }
+                column.setKey(true);
+                column.setNotNull(true);
+            } else if (columns[i][2].equals("n"))
+                column.setNotNull(true);
+            if (column.getJavaType().equals("int") || column.getJavaType().equals("long") || column.getJavaType().equals("double"))
+                column.setNumber(true);
+            column.setComment(columns[i][3]);
+            list.add(column);
         }
-        StringBuilder imports = new StringBuilder();
-        types.forEach(type -> imports.append(imports.length() == 0 ? "\n" : "").append("\nimport ").append(type).append(";"));
-
-        map.put("MODEL_IMPORT", imports.toString());
-        map.put("MODEL_FIELD", fields.toString());
-        map.put("MODEL_GS", gs.toString());
-        map.put("DDL_COLUMNS", ddlColumns.toString());
-        map.put("DDL_KEYS", ddlKeys.toString());
+        map.put("types", types);
+        map.put("columns", list);
     }
 
     protected static String getName(String column) {
