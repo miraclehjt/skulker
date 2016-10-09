@@ -12,6 +12,7 @@ CREATE TABLE t${prefix}_${module_name}
 <#if columns?? && (columns?size>0)>
 <#list columns as column>
   ${column.name} ${column.type?upper_case} <#if column.number>DEFAULT 0<#else><#if column.notNull>NOT<#else>DEFAULT</#if> NULL</#if> COMMENT '${column.comment}',
+  <#if column.unique><#assign keys=keys+",\n  UNIQUE KEY uk"+prefix+"_"+module_name+"_"+column.name?remove_beginning("c_")+"("+column.name+")"/></#if>
   <#if column.key><#assign keys=keys+",\n  KEY k"+prefix+"_"+module_name+"_"+column.name?remove_beginning("c_")+"("+column.name+")"/></#if>
 </#list>
 </#if>

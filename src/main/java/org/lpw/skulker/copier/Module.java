@@ -3,7 +3,12 @@ package org.lpw.skulker.copier;
 import org.lpw.skulker.util.FreeMarker;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @auth lpw
@@ -69,7 +74,10 @@ public class Module {
                 types.add(column.getJavaType());
                 column.setJavaType(column.getJavaType().substring(indexOf + 1));
             }
-            if (columns[i][2].equals("k")) {
+            if (columns[i][2].equals("uk")) {
+                column.setUnique(true);
+                column.setNotNull(true);
+            } else if (columns[i][2].equals("k")) {
                 column.setKey(true);
                 column.setNotNull(true);
             } else if (columns[i][2].equals("n"))

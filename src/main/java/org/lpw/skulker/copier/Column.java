@@ -9,6 +9,7 @@ public class Column {
     private String method;
     private String type;
     private String javaType;
+    private boolean unique;
     private boolean key;
     private boolean notNull;
     private boolean number;
@@ -52,6 +53,14 @@ public class Column {
 
     public void setJavaType(String javaType) {
         this.javaType = javaType;
+    }
+
+    public boolean isUnique() {
+        return unique;
+    }
+
+    public void setUnique(boolean unique) {
+        this.unique = unique;
     }
 
     public boolean isKey() {
