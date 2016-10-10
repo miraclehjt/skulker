@@ -25,10 +25,11 @@ public class Module {
      * @param pkg          包名，不包含模块名。
      * @param tephra       Tephra包名，为null则使用默认（org.lpw.tephra）。
      * @param modelSupport ModelSupport包名，为null则使用默认（org.lpw.tephra.dao.model）。
+     * @param idLength     ID长度。
      * @param columns      字段集；二维数组，每行元素依次为：字段名、类型、设置（k-索引、n-不为NULL）、说明。
      * @throws IOException 未处理IO读写异常。
      */
-    public static void parse(String module, String pkg, String tephra, String modelSupport, String[][] columns) throws IOException {
+    public static void parse(String module, String pkg, String tephra, String modelSupport, int idLength, String[][] columns) throws IOException {
         String out = OUT + module.toLowerCase() + "/";
         Copier.init(out);
         Map<String, Object> map = new HashMap<>();
@@ -49,14 +50,15 @@ public class Module {
         map.put("packages", pkg.split("\\."));
         map.put("tephra", tephra == null ? "org.lpw.tephra" : tephra);
         map.put("modelSupport", modelSupport == null ? "org.lpw.tephra.dao.model" : modelSupport);
-        model(map, columns);
+        map.put("idLength", idLength);
+        model(map, columns, idLength);
 
         for (String type : TYPES)
             FreeMarker.process(IN, type + ".java", out + module + type + ".java", map);
         FreeMarker.process(IN, "ddl.sql", out + "ddl.sql", map);
     }
 
-    protected static void model(Map<String, Object> map, String[][] columns) {
+    protected static void model(Map<String, Object> map, String[][] columns, int idLength) {
         if (columns == null || columns.length == 0)
             return;
 
@@ -67,8 +69,8 @@ public class Module {
             column.setName(columns[i][0]);
             column.setField(getName(column.getName()));
             column.setMethod(column.getField().substring(0, 1).toUpperCase() + column.getField().substring(1));
-            column.setType(columns[i][1]);
-            column.setJavaType(getType(columns[i][1]));
+            column.setType(columns[i][1].equalsIgnoreCase("fk") ? ("CHAR(" + idLength + ")") : columns[i][1]);
+            column.setJavaType(getType(column.getType()));
             int indexOf = column.getJavaType().lastIndexOf('.');
             if (indexOf > -1) {
                 types.add(column.getJavaType());

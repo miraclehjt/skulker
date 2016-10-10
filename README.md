@@ -15,8 +15,9 @@ import java.io.IOException;
 public class Demo {
     public static void main(String[] args) throws IOException {
         // 生成标准功能模块。
-        Module.parse("HelloWorld", "org.lpw.skulker.demo", null, null,
-                new String[][]{{"c_name", "VARCHAR(255)", "k", "名称"},
+        Module.parse("HelloWorld", "org.lpw.skulker.demo", null, null, 36,
+                new String[][]{{"c_key", "FK", "uk", "Key"},
+                        {"c_name", "VARCHAR(255)", "k", "名称"},
                         {"c_type", "int", "", "类型"},
                         {"c_time", "DateTime", "", "时间"}});
     }
@@ -48,11 +49,22 @@ import java.sql.Timestamp;
 @Entity(name = HelloWorldModel.NAME)
 @Table(name = "t_demo_hello_world")
 public class HelloWorldModel extends ModelSupport {
-    static final String NAME = "demo.hello-world";
+    static final String NAME = "skulker.demo.hello-world";
 
+    private String key; // Key
     private String name; // 名称
     private int type; // 类型
     private Timestamp time; // 时间
+
+    @Jsonable
+    @Column(name = "c_key")
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     @Jsonable
     @Column(name = "c_name")
@@ -91,11 +103,13 @@ DROP TABLE IF EXISTS t_demo_hello_world;
 CREATE TABLE t_demo_hello_world
 (
   c_id CHAR(36) NOT NULL COMMENT '主键',
+  c_key CHAR(36) NOT NULL COMMENT 'Key',
   c_name VARCHAR(255) NOT NULL COMMENT '名称',
   c_type INT DEFAULT 0 COMMENT '类型',
   c_time DATETIME DEFAULT NULL COMMENT '时间',
 
   PRIMARY KEY pk_demo_hello_world(c_id),
+  UNIQUE KEY uk_demo_hello_world_key(c_key),
   KEY k_demo_hello_world_name(c_name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
