@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author lpw
+ * @author ${author}
  */
 @Service(${module}Model.NAME + ".service")
 public class ${module}ServiceImpl implements ${module}Service {

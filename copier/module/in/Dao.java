@@ -1,7 +1,7 @@
 package ${pkg}.${module?lower_case};
 
 /**
- * @author lpw
+ * @author ${author}
  */
 interface ${module}Dao {
 }

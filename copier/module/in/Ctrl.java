@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
- * @author lpw
+ * @author ${author}
  */
 @Controller(${module}Model.NAME + ".ctrl")
 @Execute(name = "<#list packages as pkg><#if (pkg_index>2)>/${pkg}</#if></#list>/${module_name?replace("_","-")}/", key = ${module}Model.NAME, code = "0")

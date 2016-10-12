@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author lpw
+ * @author ${author}
  */
 @Repository(${module}Model.NAME + ".dao")
 class ${module}DaoImpl implements ${module}Dao {

@@ -17,7 +17,7 @@ import ${type};
 </#if>
 
 /**
- * @author lpw
+ * @author ${author}
  */
 @Component(${module}Model.NAME + ".model")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)

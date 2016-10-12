@@ -21,6 +21,7 @@ public class Module {
     /**
      * 生成标准功能模块。
      *
+     * @param author       开发者。
      * @param module       模块名。
      * @param pkg          包名，不包含模块名。
      * @param tephra       Tephra包名，为null则使用默认（org.lpw.tephra）。
@@ -29,7 +30,7 @@ public class Module {
      * @param columns      字段集；二维数组，每行元素依次为：字段名、类型、设置（k-索引、n-不为NULL）、说明。
      * @throws IOException 未处理IO读写异常。
      */
-    public static void parse(String module, String pkg, String tephra, String modelSupport, int idLength, String[][] columns) throws IOException {
+    public static void parse(String author, String module, String pkg, String tephra, String modelSupport, int idLength, String[][] columns) throws IOException {
         String out = OUT + module.toLowerCase() + "/";
         Copier.init(out);
         Map<String, Object> map = new HashMap<>();
@@ -43,6 +44,7 @@ public class Module {
             }
             name.append(ch);
         }
+        map.put("author", author);
         map.put("module", module);
         map.put("moduleName", module.substring(0, 1).toLowerCase() + module.substring(1));
         map.put("module_name", name.toString());
