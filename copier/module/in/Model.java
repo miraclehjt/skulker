@@ -1,7 +1,7 @@
 package ${pkg}.${module?lower_case};
 
 import ${tephra}.dao.model.Jsonable;
-import ${modelSupport}.ModelSupport;
+import ${modelSupportPackage}.${modelSupportName};
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ import ${type};
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Entity(name = ${module}Model.NAME)
 @Table(name = "t<#list packages as pkg><#if (pkg_index>2)>_${pkg}</#if></#list>_${module_name}")
-public class ${module}Model extends ModelSupport {
+public class ${module}Model extends ${modelSupportName} {
     static final String NAME = "<#list packages as pkg><#if (pkg_index>1)>${pkg}.</#if></#list>${module_name?replace("_","-")}";
 <#if columns?? && (columns?size>0)>
 
