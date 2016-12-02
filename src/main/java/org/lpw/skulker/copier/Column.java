@@ -14,6 +14,7 @@ public class Column {
     private boolean notNull;
     private boolean number;
     private String comment;
+    private boolean ignoreJava;
 
     public String getName() {
         return name;
@@ -93,5 +94,13 @@ public class Column {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public boolean isIgnoreJava() {
+        return ignoreJava;
+    }
+
+    public void setIgnoreJava(boolean ignoreJava) {
+        this.ignoreJava = ignoreJava;
     }
 }

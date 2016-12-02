@@ -27,10 +27,10 @@ public class ${module}Model extends ${modelSupportName} {
     static final String NAME = "<#list packages as pkg><#if (pkg_index>1)>${pkg}.</#if></#list>${module_name?replace("_","-")}";
 <#if columns?? && (columns?size>0)>
 
-<#list columns as column>
+<#list columns as column><#if !column.ignoreJava>
     private ${column.javaType} ${column.field}; // ${column.comment}
-</#list>
-<#list columns as column>
+</#if></#list>
+<#list columns as column><#if !column.ignoreJava>
 
     @Jsonable
     @Column(name = "${column.name}")
@@ -41,6 +41,6 @@ public class ${module}Model extends ${modelSupportName} {
     public void set${column.method}(${column.javaType} ${column.field}) {
         this.${column.field} = ${column.field};
     }
-</#list>
+</#if></#list>
 </#if>
 }

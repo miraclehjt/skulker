@@ -51,8 +51,8 @@ public class Module {
         map.put("module_name", name.toString());
         map.put("pkg", pkg);
         map.put("packages", pkg.split("\\."));
-        map.put("tephra", tephra == null ? "org.lpw.tephra" : tephra);
-        map.put("modelSupportPackage", modelSupportPackage == null ? "org.lpw.tephra.dao.model" : modelSupportPackage);
+        map.put("tephra", tephra == null ? tephra = "org.lpw.tephra" : tephra);
+        map.put("modelSupportPackage", modelSupportPackage == null ? tephra + ".dao.model" : modelSupportPackage);
         map.put("modelSupportName", modelSupportName == null ? "ModelSupport" : modelSupportName);
         map.put("idLength", idLength);
         model(map, columns, idLength);
@@ -91,6 +91,7 @@ public class Module {
             if (column.getJavaType().equals("int") || column.getJavaType().equals("long") || column.getJavaType().equals("double"))
                 column.setNumber(true);
             column.setComment(columns[i][3]);
+            column.setIgnoreJava(columns[i][2].equals("ignore"));
             list.add(column);
         }
         map.put("types", types);
