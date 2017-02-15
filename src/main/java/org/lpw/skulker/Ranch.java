@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class Ranch {
     public static void main(String[] args) {
-        user();
+        classify();
     }
 
     private static void auth() {
@@ -55,7 +55,8 @@ public class Ranch {
 
     private static void classify() {
         copy("Classify", null, new String[][]{{"c_code", "VARCHAR(255)", "k", "编码"},
-                {"c_name", "VARCHAR(255)", "n", "名称"}, {"c_label", "TEXT", "", "标签"}}, true, false);
+                {"c_pinyin", "VARCHAR(255)", "k", "拼音码"}, {"c_name", "VARCHAR(255)", "n", "名称"},
+                {"c_json", "TEXT", "", "JSON扩展"}}, true, false);
     }
 
     private static void copy(String module, String pkg, String[][] columns, boolean recycle, boolean audit) {
