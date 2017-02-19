@@ -55,7 +55,7 @@ public class Ranch {
 
     private static void classify() {
         copy("Classify", null, new String[][]{{"c_code", "VARCHAR(255)", "k", "编码"},
-                {"c_pinyin", "VARCHAR(255)", "k", "拼音码"}, {"c_name", "VARCHAR(255)", "n", "名称"},
+                {"c_key", "VARCHAR(255)", "k", "关键词"}, {"c_name", "VARCHAR(255)", "n", "名称"},
                 {"c_json", "TEXT", "", "JSON扩展"}}, true, false);
     }
 
