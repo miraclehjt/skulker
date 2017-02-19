@@ -73,14 +73,18 @@ public class Module {
             column.setName(columns[i][0]);
             column.setField(getName(column.getName()));
             column.setMethod(column.getField().substring(0, 1).toUpperCase() + column.getField().substring(1));
-            column.setType(columns[i][1].equalsIgnoreCase("fk") ? ("CHAR(" + idLength + ")") : columns[i][1]);
-            column.setJavaType(getType(column.getType()));
+            column.setType(getColumnType(columns[i][1], idLength));
+            column.setJavaType(getJavaType(column.getType()));
             int indexOf = column.getJavaType().lastIndexOf('.');
             if (indexOf > -1) {
                 types.add(column.getJavaType());
                 column.setJavaType(column.getJavaType().substring(indexOf + 1));
             }
-            if (columns[i][2].equals("uk")) {
+            if (columns[i][1].equalsIgnoreCase("auto")) {
+                column.setUnique(true);
+                column.setNotNull(true);
+                column.setAuto(true);
+            } else if (columns[i][2].equals("uk")) {
                 column.setUnique(true);
                 column.setNotNull(true);
             } else if (columns[i][2].equals("k")) {
@@ -98,7 +102,7 @@ public class Module {
         map.put("columns", list);
     }
 
-    protected static String getName(String column) {
+    private static String getName(String column) {
         String name = column;
         if (name.startsWith("c_"))
             name = name.substring(2);
@@ -110,8 +114,19 @@ public class Module {
         return name;
     }
 
-    protected static String getType(String type) {
-        String lower = type.toLowerCase();
+
+    private static String getColumnType(String type, int idLength) {
+        if (type.equalsIgnoreCase("fk"))
+            return ("CHAR(" + idLength + ")");
+
+        if (type.equalsIgnoreCase("auto"))
+            return "BIGINT AUTO_INCREMENT";
+
+        return type;
+    }
+
+    private static String getJavaType(String columnType) {
+        String lower = columnType.toLowerCase();
         if (lower.contains("char") || lower.contains("text"))
             return "String";
 
@@ -141,7 +156,7 @@ public class Module {
         return lower;
     }
 
-    protected static int[] decimal(String range) {
+    private static int[] decimal(String range) {
         int indexOf = range.indexOf(',');
         if (indexOf == -1)
             return new int[]{Integer.parseInt(range), 0};

@@ -13,6 +13,7 @@ public class Column {
     private boolean key;
     private boolean notNull;
     private boolean number;
+    private boolean auto;
     private String comment;
     private boolean ignoreJava;
 
@@ -86,6 +87,14 @@ public class Column {
 
     public void setNumber(boolean number) {
         this.number = number;
+    }
+
+    public boolean isAuto() {
+        return auto;
+    }
+
+    public void setAuto(boolean auto) {
+        this.auto = auto;
     }
 
     public String getComment() {

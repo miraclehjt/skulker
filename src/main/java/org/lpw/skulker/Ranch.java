@@ -9,7 +9,29 @@ import java.io.IOException;
  */
 public class Ranch {
     public static void main(String[] args) {
-        classify();
+        message();
+    }
+
+    private static void message() {
+        copy("Message", "chat", new String[][]{{"c_sender", "FK", "k", "发送者ID"},
+                {"c_receiver", "FK", "k", "接收者ID"}, {"c_type", "INT", "", "类型：0-文本；1-图片；2-音频；3-视频"},
+                {"c_content", "TEXT", "", "内容"}, {"c_time", "DATETIME", "k", "发送时间"}
+        }, false, false);
+    }
+
+    private static void member() {
+        copy("Member", "chat", new String[][]{{"c_room", "FK", "k", "房间ID"},
+                {"c_user", "FK", "k", "用户ID"}, {"c_nick", "VARCHAR(255)", "", "房间昵称"},
+                {"c_type", "INT", "", "类型：0-普通成员；1-管理员；2-所有者"}
+        }, false, false);
+    }
+
+    private static void room() {
+        copy("Room", "chat", new String[][]{{"c_owner", "FK", "k", "所有者ID"},
+                {"c_title", "VARCHAR(255)", "", "房间名称"}, {"c_member", "INT", "", "成员数"},
+                {"c_newest", "DATETIME", "n", "最新消息时间"}, {"c_create", "DATETIME", "n", "创建时间"},
+                {"c_code", "CHAR(8)", "uk", "编号"}
+        }, false, false);
     }
 
     private static void auth() {
