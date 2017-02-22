@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class Ranch {
     public static void main(String[] args) {
-        message();
+        friend();
     }
 
     private static void message() {
@@ -31,6 +31,14 @@ public class Ranch {
                 {"c_title", "VARCHAR(255)", "", "房间名称"}, {"c_member", "INT", "", "成员数"},
                 {"c_newest", "DATETIME", "n", "最新消息时间"}, {"c_create", "DATETIME", "n", "创建时间"},
                 {"c_code", "CHAR(8)", "uk", "编号"}
+        }, false, false);
+    }
+
+    private static void friend() {
+        copy("Friend", "chat", new String[][]{{"c_owner", "FK", "k", "所有者ID"},
+                {"c_friend", "FK", "", "好友ID"}, {"c_note", "VARCHAR(255)", "", "备注"},
+                {"c_state", "INT", "", "状态：0-待对方确认；1-待己方确认；2-已通过；3-已拒绝/拉黑"},
+                {"c_create", "DATETIME", "n", "创建时间"}
         }, false, false);
     }
 
@@ -77,8 +85,9 @@ public class Ranch {
 
     private static void classify() {
         copy("Classify", null, new String[][]{{"c_code", "VARCHAR(255)", "k", "编码"},
-                {"c_key", "VARCHAR(255)", "k", "关键词"}, {"c_name", "VARCHAR(255)", "n", "名称"},
-                {"c_json", "TEXT", "", "JSON扩展"}}, true, false);
+                        {"c_key", "VARCHAR(255)", "", "键"}, {"c_value", "VARCHAR(255)", "n", "值"},
+                        {"c_name", "VARCHAR(255)", "n", "名称"}, {"c_json", "TEXT", "", "JSON扩展"}},
+                true, false);
     }
 
     private static void copy(String module, String pkg, String[][] columns, boolean recycle, boolean audit) {
