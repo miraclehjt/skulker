@@ -8,6 +8,7 @@ import java.io.IOException;
  * @author lpw
  */
 public class Ranch {
+
     public static void main(String[] args) {
         friend();
     }
