@@ -14,10 +14,10 @@ CREATE TABLE t${prefix}_${module_name}
 <#list columns as column>
   ${column.name} ${column.type?upper_case} <#if column.number && !column.auto>DEFAULT 0<#else><#if column.notNull>NOT<#else>DEFAULT</#if> NULL</#if> COMMENT '${column.comment}',
   <#if column.unique><#assign keys=keys+",\n  UNIQUE KEY uk"+prefix+"_"+module_name+"_"+column.name?remove_beginning("c_")+"("+column.name+")"/></#if>
-  <#if column.key><#assign keys=keys+",\n  KEY k"+prefix+"_"+module_name+"_"+column.name?remove_beginning("c_")+"("+column.name+")"/></#if>
+  <#if column.key><#assign keys=keys+",\n  KEY k"+prefix+"_"+module_name+"_"+column.name?remove_beginning("c_")+"("+column.name+") USING HASH"/></#if>
   <#if column.auto><#assign auto=true/></#if>
 </#list>
 </#if>
 
-  PRIMARY KEY pk${prefix}_${module_name}(c_id)${keys}
+  PRIMARY KEY pk${prefix}_${module_name}(c_id) USING HASH${keys}
 ) ENGINE=InnoDB<#if auto> AUTO_INCREMENT=1</#if> DEFAULT CHARSET=utf8;

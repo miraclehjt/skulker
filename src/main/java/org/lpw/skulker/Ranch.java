@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class Ranch {
     public static void main(String[] args) {
-        group();
+        member();
     }
 
     private static void message() {
@@ -20,9 +20,9 @@ public class Ranch {
     }
 
     private static void member() {
-        copy("Member", "chat", new String[][]{{"c_room", "FK", "k", "房间ID"},
-                {"c_user", "FK", "k", "用户ID"}, {"c_nick", "VARCHAR(255)", "", "房间昵称"},
-                {"c_type", "INT", "", "类型：0-普通成员；1-管理员；2-所有者"}
+        copy("Member", "group", new String[][]{{"c_group", "FK", "k", "群组ID"},
+                {"c_user", "FK", "k", "用户ID"}, {"c_nick", "VARCHAR(255)", "", "群组昵称"},
+                {"c_type", "INT", "", "类型：0-待审核；1-普通成员；2-管理员；3-所有者"}
         }, false, false);
     }
 
