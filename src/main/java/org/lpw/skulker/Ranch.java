@@ -3,13 +3,16 @@ package org.lpw.skulker;
 import org.lpw.skulker.copier.Module;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author lpw
  */
 public class Ranch {
     public static void main(String[] args) {
-        doc();
+        member();
     }
 
     private static void message() {
@@ -22,6 +25,7 @@ public class Ranch {
     private static void member() {
         copy("Member", "group", new String[][]{{"c_group", "FK", "k", "群组ID"},
                 {"c_user", "FK", "k", "用户ID"}, {"c_nick", "VARCHAR(255)", "", "群组昵称"},
+                {"c_reason", "VARCHAR(255)", "", "申请加入理由"},
                 {"c_type", "INT", "", "类型：0-待审核；1-普通成员；2-管理员；3-所有者"},
                 {"c_join", "DATETIME", "", "加入时间"}
         }, false, false);
@@ -69,11 +73,11 @@ public class Ranch {
                 {"c_sort", "INT", "", "顺序"}, {"c_subject", "VARCHAR(255)", "n", "标题"},
                 {"c_image", "VARCHAR(255)", "", "主图URI地址"}, {"c_thumbnail", "VARCHAR(255)", "", "缩略图URI地址"},
                 {"c_summary", "TEXT", "", "摘要"}, {"c_label", "TEXT", "", "标签"},
-                {"c_content", "TEXT", "n", "内容"}, {"c_source", "TEXT", "n", "内容源"},
+                {"c_source", "TEXT", "n", "内容源"}, {"c_content", "TEXT", "n", "内容"},
                 {"c_read", "INT", "", "阅读次数"}, {"c_favorite", "INT", "", "收藏次数"},
                 {"c_comment", "INT", "", "评论次数"}, {"c_score", "INT", "", "得分"},
                 {"c_time", "DATETIME", "n", "更新时间"}
-        }, false, true);
+        }, true, true);
     }
 
     private static void comment() {
@@ -94,25 +98,25 @@ public class Ranch {
 
     private static void copy(String module, String pkg, String[][] columns, boolean recycle, boolean audit) {
         try {
-            if (recycle) {
-                String[][] array = new String[columns.length + 1][];
-                System.arraycopy(columns, 0, array, 0, columns.length);
-                array[array.length - 1] = new String[]{"c_recycle", "INT", "ignore", "回收站；0-否，1-是"};
+            List<String[]> list = new ArrayList<>();
+            list.addAll(Arrays.asList(columns));
+            if (audit) {
+                list.add(new String[]{"c_audit", "INT", "ignore", "审核：0-待审核；1-审核通过；2-审核不通过"});
+                list.add(new String[]{"c_audit_remark", "VARCHAR(255)", "ignore", "审核备注"});
+            }
+            if (audit || recycle)
+                list.add(new String[]{"c_recycle", "INT", "ignore", "回收站；0-否，1-是"});
+            String[][] array = list.toArray(new String[0][]);
 
-                Module.parse("lpw", module, (pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg)), null,
-                        "org.lpw.ranch.recycle", "RecycleModelSupport", 36, array);
-            } else if (audit) {
-                String[][] array = new String[columns.length + 2][];
-                System.arraycopy(columns, 0, array, 0, columns.length);
-                array[array.length - 2] = new String[]{"c_audit", "INT", "ignore", "审核：0-待审核；1-审核通过；2-审核不通过"};
-                array[array.length - 1] = new String[]{"c_audit_remark", "VARCHAR(255)", "ignore", "审核备注"};
-
+            if (audit)
                 Module.parse("lpw", module, (pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg)), null,
                         "org.lpw.ranch.audit", "AuditModelSupport", 36, array);
-            } else {
+            else if (recycle)
+                Module.parse("lpw", module, (pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg)), null,
+                        "org.lpw.ranch.recycle", "RecycleModelSupport", 36, array);
+            else
                 Module.parse("lpw", module, (pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg)), null,
                         null, null, 36, columns);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
