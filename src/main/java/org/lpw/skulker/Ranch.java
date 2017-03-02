@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class Ranch {
     public static void main(String[] args) {
-        member();
+        doc();
     }
 
     private static void message() {
@@ -69,9 +69,10 @@ public class Ranch {
                 {"c_sort", "INT", "", "顺序"}, {"c_subject", "VARCHAR(255)", "n", "标题"},
                 {"c_image", "VARCHAR(255)", "", "主图URI地址"}, {"c_thumbnail", "VARCHAR(255)", "", "缩略图URI地址"},
                 {"c_summary", "TEXT", "", "摘要"}, {"c_label", "TEXT", "", "标签"},
-                {"c_content", "TEXT", "n", "内容"}, {"c_read", "INT", "", "阅读次数"},
-                {"c_favorite", "INT", "", "收藏次数"}, {"c_comment", "INT", "", "评论次数"},
-                {"c_score", "INT", "", "得分"}, {"c_time", "DATETIME", "n", "时间"}
+                {"c_content", "TEXT", "n", "内容"}, {"c_source", "TEXT", "n", "内容源"},
+                {"c_read", "INT", "", "阅读次数"}, {"c_favorite", "INT", "", "收藏次数"},
+                {"c_comment", "INT", "", "评论次数"}, {"c_score", "INT", "", "得分"},
+                {"c_time", "DATETIME", "n", "更新时间"}
         }, false, true);
     }
 
