@@ -16,10 +16,10 @@ public class Ranch {
     }
 
     private static void message() {
-        copy("Message", null, new String[][]{{"c_sender", "FK", "k", "发送者ID"},
-                {"c_type", "INT", "", "接收者类型：0-好友；1-群组"}, {"c_receiver", "FK", "k", "接收者ID"},
+        copy("Message", null, new String[][]{{"c_sender", "FK", "n", "发送者ID"},
+                {"c_type", "INT", "", "接收者类型：0-好友；1-群组"}, {"c_receiver", "FK", "n", "接收者ID"},
                 {"c_format", "INT", "", "消息格式：0-文本；1-图片；2-音频；3-视频；4-文件；5-红包"},
-                {"c_content", "TEXT", "n", "内容"}, {"c_time", "DATETIME", "n", "发送时间"}
+                {"c_content", "TEXT", "n", "内容"}, {"c_time", "DATETIME", "k", "发送时间"}
         }, false, false);
     }
 
