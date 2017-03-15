@@ -12,7 +12,14 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        member();
+        snapshot();
+    }
+
+    private static void snapshot() {
+        copy("Snapshot", null, new String[][]{{"c_data", "TEXT", "n", "数据"},
+                {"c_content", "TEXT", "n", "内容"}, {"c_time", "DATETIME", "", "时间"},
+                {"c_md5", "CHAR(32)", "uk", "MD5值"}
+        }, false, false);
     }
 
     private static void message() {
