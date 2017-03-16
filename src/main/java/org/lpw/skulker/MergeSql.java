@@ -14,7 +14,7 @@ public class MergeSql {
     public static void main(String[] args) throws IOException {
         new File("output").mkdirs();
         OutputStream outputStream = new FileOutputStream("output/ranch.sql");
-        scan(outputStream, "create.sql", new File("/home/lpw/work/zoe-ranch"));
+        scan(outputStream, "create.sql", new File("/home/lpw/work/ranch"));
         outputStream.close();
     }
 
