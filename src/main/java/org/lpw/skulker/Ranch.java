@@ -12,7 +12,13 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        message();
+        last();
+    }
+
+    private static void last() {
+        copy("Last", null, new String[][]{{"c_user", "FK", "uk", "用户ID"},
+                {"c_type", "VARCHAR(256)", "n", "类型"}, {"c_time", "DATETIME", "", "时间"}
+        }, false, false);
     }
 
     private static void snapshot() {
