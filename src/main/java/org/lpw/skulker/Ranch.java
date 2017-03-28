@@ -12,12 +12,12 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        last();
+        member();
     }
 
     private static void last() {
         copy("Last", null, new String[][]{{"c_user", "FK", "uk", "用户ID"},
-                {"c_type", "VARCHAR(255)", "n", "类型"},{"c_json", "TEXT", "", "扩展数据"},
+                {"c_type", "VARCHAR(255)", "n", "类型"}, {"c_json", "TEXT", "", "扩展数据"},
                 {"c_time", "DATETIME", "", "时间"}
         }, false, false);
     }
@@ -43,7 +43,7 @@ public class Ranch {
                 {"c_user", "FK", "k", "用户ID"}, {"c_nick", "VARCHAR(255)", "", "群组昵称"},
                 {"c_reason", "VARCHAR(255)", "", "申请加入理由"},
                 {"c_type", "INT", "", "类型：0-待审核；1-普通成员；2-管理员；3-所有者"},
-                {"c_join", "DATETIME", "", "加入时间"}
+                {"c_introducer", "FK", "", "介绍人ID"}, {"c_join", "DATETIME", "", "加入时间"}
         }, false, false);
     }
 
