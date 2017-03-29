@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        member();
+        group();
     }
 
     private static void last() {
@@ -49,9 +49,9 @@ public class Ranch {
 
     private static void group() {
         copy("Group", null, new String[][]{{"c_owner", "FK", "k", "所有者ID"},
-                {"c_name", "VARCHAR(255)", "", "名称"}, {"c_note", "VARCHAR(255)", "", "公告"},
-                {"c_member", "INT", "", "成员数"}, {"c_audit", "INT", "", "新成员是否需要审核：0-否；1-是"},
-                {"c_create", "DATETIME", "n", "创建时间"}
+                {"c_name", "VARCHAR(255)", "", "名称"}, {"c_portrait", "VARCHAR(255)", "", "头像"},
+                {"c_note", "VARCHAR(255)", "", "公告"}, {"c_member", "INT", "", "成员数"},
+                {"c_audit", "INT", "", "新成员是否需要审核：0-否；1-是"}, {"c_create", "DATETIME", "n", "创建时间"}
         }, false, false);
     }
 
