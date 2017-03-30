@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        member();
+        group();
     }
 
     private static void last() {
@@ -32,7 +32,7 @@ public class Ranch {
     private static void message() {
         copy("Message", null, new String[][]{{"c_sender", "FK", "n", "发送者ID"},
                 {"c_type", "INT", "", "接收者类型：0-好友；1-群组"}, {"c_receiver", "FK", "n", "接收者ID"},
-                {"c_format", "INT", "", "消息格式：0-文本；1-图片；2-音频；3-视频；4-文件；5-红包；6-公告；7-名片"},
+                {"c_format", "INT", "", "消息格式：0-文本；1-图片；2-音频；3-视频；4-文件；5-红包；6-转账；7-名片；8-公告；9-通知"},
                 {"c_content", "VARCHAR(2048)", "n", "内容"}, {"c_time", "DATETIME", "k", "发送时间"},
                 {"c_code", "VARCHAR(64)", "uk", "校验码"}
         }, false, false);
@@ -49,9 +49,9 @@ public class Ranch {
 
     private static void group() {
         copy("Group", null, new String[][]{{"c_owner", "FK", "k", "所有者ID"},
-                {"c_name", "VARCHAR(255)", "", "名称"}, {"c_note", "VARCHAR(255)", "", "公告"},
-                {"c_member", "INT", "", "成员数"}, {"c_audit", "INT", "", "新成员是否需要审核：0-否；1-是"},
-                {"c_create", "DATETIME", "n", "创建时间"}
+                {"c_name", "VARCHAR(255)", "", "名称"}, {"c_portrait", "VARCHAR(255)", "", "头像"},
+                {"c_note", "VARCHAR(255)", "", "公告"}, {"c_member", "INT", "", "成员数"},
+                {"c_audit", "INT", "", "新成员是否需要审核：0-否；1-是"}, {"c_create", "DATETIME", "n", "创建时间"}
         }, false, false);
     }
 
