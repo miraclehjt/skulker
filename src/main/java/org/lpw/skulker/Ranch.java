@@ -58,7 +58,7 @@ public class Ranch {
     private static void friend() {
         copy("Friend", null, new String[][]{{"c_owner", "FK", "k", "所有者ID"},
                 {"c_user", "FK", "", "好友ID"}, {"c_memo", "VARCHAR(255)", "", "备注"},
-                {"c_state", "INT", "", "状态：0-待对方确认；1-待己方确认；2-已通过；3-已拒绝/拉黑"},
+                {"c_state", "INT", "", "状态：0-待对方确认；1-待己方确认；2-已通过；3-已拒绝；4-已拉黑"},
                 {"c_create", "DATETIME", "n", "创建时间"}
         }, false, false);
     }
