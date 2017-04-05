@@ -67,7 +67,7 @@ public class Ranch {
     private static void friend() {
         copy("Friend", null, new String[][]{{"c_owner", "FK", "k", "所有者ID"},
                 {"c_user", "FK", "", "好友ID"}, {"c_memo", "VARCHAR(255)", "", "备注"},
-                {"c_state", "INT", "", "状态：0-待对方确认；1-待己方确认；2-已通过；3-已拒绝/拉黑"},
+                {"c_state", "INT", "", "状态：0-待对方确认；1-待己方确认；2-已通过；3-已拒绝；4-已拉黑"},
                 {"c_create", "DATETIME", "n", "创建时间"}
         }, false, false);
     }
@@ -134,13 +134,13 @@ public class Ranch {
             String[][] array = list.toArray(new String[0][]);
 
             if (audit)
-                Module.parse("lpw", module, (pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg)), null,
+                Module.parse("lpw", module, pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg), null,
                         "org.lpw.ranch.audit", "AuditModelSupport", 36, array);
             else if (recycle)
-                Module.parse("lpw", module, (pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg)), null,
+                Module.parse("lpw", module, pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg), null,
                         "org.lpw.ranch.recycle", "RecycleModelSupport", 36, array);
             else
-                Module.parse("lpw", module, (pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg)), null,
+                Module.parse("lpw", module, pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg), null,
                         null, null, 36, columns);
         } catch (IOException e) {
             e.printStackTrace();
