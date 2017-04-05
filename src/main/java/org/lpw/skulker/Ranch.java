@@ -125,13 +125,13 @@ public class Ranch {
             String[][] array = list.toArray(new String[0][]);
 
             if (audit)
-                Module.parse("lpw", module, (pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg)), null,
+                Module.parse("lpw", module, pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg), null,
                         "org.lpw.ranch.audit", "AuditModelSupport", 36, array);
             else if (recycle)
-                Module.parse("lpw", module, (pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg)), null,
+                Module.parse("lpw", module, pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg), null,
                         "org.lpw.ranch.recycle", "RecycleModelSupport", 36, array);
             else
-                Module.parse("lpw", module, (pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg)), null,
+                Module.parse("lpw", module, pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg), null,
                         null, null, 36, columns);
         } catch (IOException e) {
             e.printStackTrace();
