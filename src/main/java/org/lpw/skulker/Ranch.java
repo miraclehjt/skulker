@@ -12,7 +12,16 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        group();
+        address();
+    }
+
+    private static void address() {
+        copy("Address", null, new String[][]{{"c_user", "FK", "k", "用户ID"},
+                {"c_region", "FK", "", "行政区字典ID"}, {"c_detail", "VARCHAR(255)", "", "详细地址"},
+                {"c_postcode", "VARCHAR(255)", "", "邮政编码"}, {"c_latitude", "VARCHAR(255)", "", "GPS纬度"},
+                {"c_longitude", "VARCHAR(255)", "", "GPS经度"}, {"c_label", "VARCHAR(255)", "", "标签"},
+                {"c_major", "INT", "", "默认地址：0-否；1-是"}, {"c_time", "DATETIME", "", "时间"}
+        }, false, false);
     }
 
     private static void last() {
