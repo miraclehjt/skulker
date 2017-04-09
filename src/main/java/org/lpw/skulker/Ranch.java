@@ -12,7 +12,22 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        address();
+        lock();
+    }
+
+    private static void lock() {
+        copy("Lock", null, new String[][]{
+                {"c_key", "CHAR(32)", "k", "锁key"}
+        }, false, false);
+    }
+
+    private static void account() {
+        copy("Account", null, new String[][]{{"c_user", "FK", "k", "用户"},
+                {"c_owner", "VARCHAR(255)", "", "所有者"}, {"c_type", "INT", "", "类型"},
+                {"c_balance", "INT", "", "余额"}, {"c_deposit", "INT", "", "存入总额"},
+                {"c_withdraw", "INT", "", "取出总额"}, {"c_reward", "INT", "", "奖励总额"},
+                {"c_profit", "INT", "", "盈利总额"}, {"c_consume", "INT", "", "消费总额"}
+        }, false, false);
     }
 
     private static void address() {
