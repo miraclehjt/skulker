@@ -17,7 +17,7 @@ public class Ranch {
 
     private static void lock() {
         copy("Lock", null, new String[][]{
-                {"c_key", "CHAR(32)", "k", "锁key"}
+                {"c_key", "CHAR(32)", "k", "锁key"}, {"c_index", "AUTO", "", "序号"}
         }, false, false);
     }
 
