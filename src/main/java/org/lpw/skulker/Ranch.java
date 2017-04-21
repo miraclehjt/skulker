@@ -12,7 +12,30 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        lock();
+        column();
+    }
+
+    private static void column() {
+        copy("Column", "dbtool", new String[][]{{"c_table", "FK", "k", "表"},
+                {"c_name", "VARCHAR(255)", "", "名称"}, {"c_type", "VARCHAR(255)", "", "数据类型"},
+                {"c_nullable", "INT", "", "是否可为NULL：0-否；1-是"}, {"c_memo", "VARCHAR(255)", "", "备注"}
+        }, false, false);
+    }
+
+    private static void table() {
+        copy("Table", "dbtool", new String[][]{{"c_schema", "FK", "k", "数据库"},
+                {"c_group", "FK", "", "分组ID"}, {"c_name", "VARCHAR(255)", "", "名称"},
+                {"c_memo", "VARCHAR(255)", "", "备注"}
+        }, false, false);
+    }
+
+    private static void schema() {
+        copy("Schema", "dbtool", new String[][]{{"c_group", "FK", "", "分组ID"},
+                {"c_key", "VARCHAR(255)", "", "数据源key"}, {"c_type", "VARCHAR(255)", "", "类型"},
+                {"c_ip", "VARCHAR(255)", "", "IP地址"}, {"c_name", "VARCHAR(255)", "", "名称"},
+                {"c_username", "VARCHAR(255)", "", "用户名"}, {"c_password", "VARCHAR(255)", "", "密码"},
+                {"c_memo", "VARCHAR(255)", "", "备注"}
+        }, false, false);
     }
 
     private static void lock() {
