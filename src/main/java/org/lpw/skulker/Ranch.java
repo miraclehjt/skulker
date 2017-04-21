@@ -13,7 +13,6 @@ import java.util.List;
 public class Ranch {
     public static void main(String[] args) {
         column();
-
     }
 
     private static void column() {
