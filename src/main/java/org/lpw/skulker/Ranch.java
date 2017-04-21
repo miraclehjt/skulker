@@ -44,6 +44,15 @@ public class Ranch {
         }, false, false);
     }
 
+    private static void accountLog() {
+        copy("Log", "account", new String[][]{{"c_user", "FK", "k", "用户"},
+                {"c_account", "FK", "k", "账户"}, {"c_type", "VARCHAR(255)", "", "类型"},
+                {"c_amount", "INT", "", "数量"}, {"c_balance", "INT", "", "余额"},
+                {"c_state", "INT", "", "状态：0-待处理；1-审核通过；2-审核不通过；3-已完成"},
+                {"c_time", "DATETIME", "", "时间"}
+        }, false, false);
+    }
+
     private static void account() {
         copy("Account", null, new String[][]{{"c_user", "FK", "k", "用户"},
                 {"c_owner", "VARCHAR(255)", "", "所有者"}, {"c_type", "INT", "", "类型"},
