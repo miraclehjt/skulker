@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        address();
+        doc();
     }
 
     private static void column() {
@@ -148,8 +148,8 @@ public class Ranch {
                 {"c_summary", "TEXT", "", "摘要"}, {"c_label", "TEXT", "", "标签"},
                 {"c_source", "TEXT", "n", "内容源"}, {"c_content", "TEXT", "n", "内容"},
                 {"c_read", "INT", "", "阅读次数"}, {"c_favorite", "INT", "", "收藏次数"},
-                {"c_comment", "INT", "", "评论次数"}, {"c_score", "INT", "", "得分"},
-                {"c_time", "DATETIME", "n", "更新时间"}
+                {"c_comment", "INT", "", "评论次数"}, {"c_praise", "INT", "", "点赞数"},
+                {"c_score", "INT", "", "得分"}, {"c_time", "DATETIME", "n", "更新时间"}
         }, true, true);
     }
 
