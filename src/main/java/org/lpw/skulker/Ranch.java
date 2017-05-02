@@ -12,7 +12,8 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        doc();
+        schema();
+        table();
     }
 
     private static void column() {
@@ -25,7 +26,7 @@ public class Ranch {
     private static void table() {
         copy("Table", "dbtool", new String[][]{{"c_schema", "FK", "k", "数据库"},
                 {"c_group", "FK", "", "分组ID"}, {"c_name", "VARCHAR(255)", "", "名称"},
-                {"c_memo", "VARCHAR(255)", "", "备注"}
+                {"c_memo", "VARCHAR(255)", "", "备注"}, {"c_columns", "INT", "", "列数量"}
         }, false, false);
     }
 
@@ -34,7 +35,7 @@ public class Ranch {
                 {"c_key", "VARCHAR(255)", "", "数据源key"}, {"c_type", "VARCHAR(255)", "", "类型"},
                 {"c_ip", "VARCHAR(255)", "", "IP地址"}, {"c_name", "VARCHAR(255)", "", "名称"},
                 {"c_username", "VARCHAR(255)", "", "用户名"}, {"c_password", "VARCHAR(255)", "", "密码"},
-                {"c_memo", "VARCHAR(255)", "", "备注"}
+                {"c_memo", "VARCHAR(255)", "", "备注"}, {"c_tables", "INT", "", "表数量"}
         }, false, false);
     }
 
@@ -58,7 +59,8 @@ public class Ranch {
                 {"c_owner", "VARCHAR(255)", "", "所有者"}, {"c_type", "INT", "", "类型"},
                 {"c_balance", "INT", "", "余额"}, {"c_deposit", "INT", "", "存入总额"},
                 {"c_withdraw", "INT", "", "取出总额"}, {"c_reward", "INT", "", "奖励总额"},
-                {"c_profit", "INT", "", "盈利总额"}, {"c_consume", "INT", "", "消费总额"}
+                {"c_profit", "INT", "", "盈利总额"}, {"c_consume", "INT", "", "消费总额"},
+                {"c_pending", "INT", "", "待结算总额"}
         }, false, false);
     }
 
