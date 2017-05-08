@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        accountLog();
+        account();
     }
 
     private static void column() {
@@ -59,7 +59,7 @@ public class Ranch {
                 {"c_balance", "INT", "", "余额"}, {"c_deposit", "INT", "", "存入总额"},
                 {"c_withdraw", "INT", "", "取出总额"}, {"c_reward", "INT", "", "奖励总额"},
                 {"c_profit", "INT", "", "盈利总额"}, {"c_consume", "INT", "", "消费总额"},
-                {"c_pending", "INT", "", "待结算总额"}
+                {"c_pending", "INT", "", "待结算总额"}, {"c_checksum", "CHAR(32)", "", "校验值"}
         }, false, false);
     }
 
