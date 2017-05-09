@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        account();
+        auth();
     }
 
     private static void column() {
@@ -123,7 +123,8 @@ public class Ranch {
 
     private static void auth() {
         copy("Auth", "user", new String[][]{{"c_user", "FK", "", "用户ID"},
-                {"c_uid", "VARCHAR(255)", "uk", "认证ID"}, {"c_type", "INT", "", "类型：0-机器码；1-自有账号；其他为第三方账号"}
+                {"c_uid", "VARCHAR(255)", "uk", "认证ID"}, {"c_time", "DATETIME", "", "绑定时间"},
+                {"c_type", "INT", "", "类型：0-绑定ID；1-自有账号；其他为第三方账号"}
         }, false, false);
     }
 
