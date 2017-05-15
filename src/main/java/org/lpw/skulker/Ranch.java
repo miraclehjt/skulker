@@ -50,7 +50,7 @@ public class Ranch {
                 {"c_amount", "INT", "", "数量"}, {"c_balance", "INT", "", "余额"},
                 {"c_state", "INT", "", "状态：0-待处理；1-审核通过；2-审核不通过；3-已完成"},
                 {"c_start", "DATETIME", "", "开始时间"}, {"c_end", "DATETIME", "", "结束时间"},
-                {"c_json", "TEXT", "", "扩展属性集"}, {"c_index", "AUTO", "", "顺序"}
+                {"c_json", "TEXT", "", "扩展属性集"}
         }, false, false);
     }
 
