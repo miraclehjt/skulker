@@ -58,7 +58,7 @@ public class Ranch {
                 {"c_amount", "INT", "", "数量"}, {"c_balance", "INT", "", "余额"},
                 {"c_state", "INT", "", "状态：0-待处理；1-审核通过；2-审核不通过；3-已完成"},
                 {"c_start", "DATETIME", "", "开始时间"}, {"c_end", "DATETIME", "", "结束时间"},
-                {"c_json", "TEXT", "", "扩展属性集"}
+                {"c_json", "TEXT", "", "扩展属性集"}, {"c_index", "AUTO", "", "序号"}
         }, false, false);
     }
 
@@ -140,12 +140,12 @@ public class Ranch {
     private static void user() {
         // 注：password需取消@Jsonable注解。
         copy("User", null, new String[][]{{"c_password", "CHAR(32)", "", "密码"},
+                {"c_secret", "CHAR(32)", "", "安全密码"}, {"c_idcard", "VARCHAR(255)", "", "身份证号"},
                 {"c_name", "VARCHAR(255)", "", "姓名"}, {"c_nick", "VARCHAR(255)", "", "昵称"},
                 {"c_mobile", "CHAR(11)", "k", "手机号"}, {"c_email", "VARCHAR(255)", "k", "Email地址"},
                 {"c_portrait", "VARCHAR(255)", "", "头像"}, {"c_gender", "INT", "", "性别：0-未知；1-男；2-女"},
-                {"c_address", "VARCHAR(255)", "", "详细地址"}, {"c_birthday", "DATE", "", "出生日期"},
-                {"c_code", "CHAR(8)", "uk", "唯一编码"}, {"c_register", "DATETIME", "", "注册时间"},
-                {"c_grade", "INT", "", "等级：<50为用户；>=50为管理员；99为超级管理员"},
+                {"c_birthday", "DATE", "", "出生日期"}, {"c_code", "CHAR(8)", "uk", "唯一编码"},
+                {"c_register", "DATETIME", "", "注册时间"}, {"c_grade", "INT", "", "等级：<50为用户；>=50为管理员；99为超级管理员"},
                 {"c_state", "INT", "", "状态：0-正常；1-禁用"}
         }, false, false);
     }
