@@ -12,7 +12,15 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        accountLog();
+        weixin();
+    }
+
+    private static void weixin() {
+        copy("Weixin", null, new String[][]{{"c_key", "VARCHAR(255)", "uk", "引用key"},
+                {"c_name", "VARCHAR(255)", "", "名称"}, {"c_app_id", "VARCHAR(255)", "", "APP ID"},
+                {"c_secret", "VARCHAR(255)", "", "密钥"}, {"c_token", "VARCHAR(255)", "", "验证Token"},
+                {"c_mch_id", "VARCHAR(255)", "", "商户ID"}, {"c_mch_key", "VARCHAR(255)", "", "商户密钥"}
+        }, false, false);
     }
 
     private static void column() {
