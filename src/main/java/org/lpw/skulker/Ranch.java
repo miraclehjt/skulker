@@ -13,6 +13,7 @@ import java.util.List;
 public class Ranch {
     public static void main(String[] args) {
         weixin();
+
     }
 
     private static void weixin() {
