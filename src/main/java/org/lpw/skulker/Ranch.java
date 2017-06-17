@@ -12,14 +12,34 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        weixin();
+        alipay();
+    }
+
+    private static void alipay() {
+        copy("Alipay", null, new String[][]{
+                {"c_key", "VARCHAR(255)", "uk", "引用key"}, {"c_name", "VARCHAR(255)", "", "名称"},
+                {"c_url", "VARCHAR(255)", "", "URL地址"}, {"c_app_id", "VARCHAR(255)", "", "APP ID"},
+                {"c_private_key", "VARCHAR(255)", "", "私钥"}, {"c_public_key", "VARCHAR(255)", "", "公钥"}
+        }, false, false);
+    }
+
+    private static void payment() {
+        copy("Payment", null, new String[][]{{"c_type", "VARCHAR(255)", "", "类型"},
+                {"c_user", "VARCHAR(255)", "k", "用户ID"}, {"c_amount", "INT", "", "金额，单位：分"},
+                {"c_order_no", "CHAR(21)", "uk", "订单号"}, {"c_trade_no", "VARCHAR(255)", "", "网关订单号"},
+                {"c_state", "INT", "", "状态：0-新建；1-成功；2-失败"}, {"c_notify", "VARCHAR(255)", "", "通知URL地址"},
+                {"c_start", "DATETIME", "", "开始时间"}, {"c_end", "DATETIME", "", "结束时间"},
+                {"c_json", "TEXT", "", "扩展数据"}
+        }, false, false);
     }
 
     private static void weixin() {
         copy("Weixin", null, new String[][]{{"c_key", "VARCHAR(255)", "uk", "引用key"},
                 {"c_name", "VARCHAR(255)", "", "名称"}, {"c_app_id", "VARCHAR(255)", "", "APP ID"},
                 {"c_secret", "VARCHAR(255)", "", "密钥"}, {"c_token", "VARCHAR(255)", "", "验证Token"},
-                {"c_mch_id", "VARCHAR(255)", "", "商户ID"}, {"c_mch_key", "VARCHAR(255)", "", "商户密钥"}
+                {"c_mch_id", "VARCHAR(255)", "", "商户ID"}, {"c_mch_key", "VARCHAR(255)", "", "商户密钥"},
+                {"c_access_token", "VARCHAR(255)", "", "Access Token"}, {"c_jsapi_ticket", "VARCHAR(255)", "", "Jsapi Ticket"},
+                {"c_time", "DATETIME", "", "更新时间"}
         }, false, false);
     }
 
