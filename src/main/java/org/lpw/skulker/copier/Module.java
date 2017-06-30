@@ -116,7 +116,7 @@ public class Module {
 
 
     private static String getColumnType(String type, int idLength) {
-        if (type.equalsIgnoreCase("fk"))
+        if (type.equalsIgnoreCase("id") || type.equalsIgnoreCase("fk"))
             return ("CHAR(" + idLength + ")");
 
         if (type.equalsIgnoreCase("auto"))
