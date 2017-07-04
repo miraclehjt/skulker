@@ -12,7 +12,17 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        link();
+        online();
+    }
+
+    private static void online() {
+        copy("Online", "user", new String[][]{
+                {"c_user", "FK", "", "用户"},
+                {"c_ip", "VARCHAR(255)", "", "IP地址"},
+                {"c_sid", "VARCHAR(255)", "uk", "Session ID"},
+                {"c_sign_in", "DATETIME", "", "登入时间"},
+                {"c_last_visit", "DATETIME", "", "最后访问时间"}
+        }, false, false);
     }
 
     private static void link() {
