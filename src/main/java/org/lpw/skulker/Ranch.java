@@ -12,7 +12,21 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        online();
+        captcha();
+    }
+
+    private static void captcha() {
+        copy("Captcha", null, new String[][]{
+                {"c_key", "VARCHAR(255)", "uk", "引用key"},
+                {"c_name", "VARCHAR(255)", "", "名称"},
+                {"c_width", "INT", "", "宽度"},
+                {"c_height", "INT", "", "高度"},
+                {"c_font_min", "INT", "", "最小字号"},
+                {"c_font_max", "INT", "", "最大字号"},
+                {"c_chars", "VARCHAR(255)", "", "字符集"},
+                {"c_length", "INT", "", "字符数"},
+                {"c_background", "INT", "", "是否使用背景图片：0-否；1-是"}
+        }, false, false);
     }
 
     private static void online() {
