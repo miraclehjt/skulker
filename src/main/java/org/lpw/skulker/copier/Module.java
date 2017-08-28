@@ -59,7 +59,7 @@ public class Module {
 
         for (String type : TYPES)
             FreeMarker.process(IN, type + ".java", out + module + type + ".java", map);
-        FreeMarker.process(IN, "ddl.sql", out + "ddl.sql", map);
+        FreeMarker.process(IN, "create.sql", out + "create.sql", map);
     }
 
     protected static void model(Map<String, Object> map, String[][] columns, int idLength) {
