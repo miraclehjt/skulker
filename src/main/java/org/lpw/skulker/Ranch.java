@@ -12,7 +12,68 @@ import java.util.List;
  */
 public class Ranch {
     public static void main(String[] args) {
-        captcha();
+        formField();
+    }
+
+    private static void formField() {
+        copy("Field", "form", new String[][]{
+                {"c_owner", "FK", "k", "所有者"},
+                {"c_name", "VARCHAR(255)", "", "名称"},
+                {"c_type", "VARCHAR(255)", "", "类型"},
+                {"c_value", "VARCHAR(255)", "", "数据"},
+                {"c_memo", "VARCHAR(255)", "", "说明"},
+                {"c_style", "TEXT", "", "样式"},
+                {"c_state", "INT", "", "状态：0-未修改；1-已修改"},
+                {"c_modify", "DATETIME", "", "修改时间"},
+                {"c_modifier", "FK", "", "修改者"},
+                {"c_version", "INT", "", "版本号"}
+        }, false, false);
+    }
+
+    private static void formTemplate() {
+        copy("Template", "form", new String[][]{
+                {"c_user", "FK", "k", "用户"},
+                {"c_name", "VARCHAR(255)", "", "名称"},
+                {"c_memo", "VARCHAR(255)", "", "说明"},
+                {"c_type", "INT", "", "类型：0-私有；1-公开"},
+                {"c_create", "DATETIME", "", "创建时间"},
+                {"c_modify", "DATETIME", "", "修改时间"}
+        }, false, false);
+    }
+
+    private static void formUser() {
+        copy("User", "form", new String[][]{
+                {"c_user", "FK", "k", "用户"},
+                {"c_form", "FK", "k", "表单"},
+                {"c_type", "INT", "", "类型：0-所有者；1-可设计；2-可编辑；3-可分享；4-只读"},
+                {"c_create", "DATETIME", "", "创建时间"},
+                {"c_join", "DATETIME", "", "加入时间"}
+        }, false, false);
+    }
+
+    private static void form() {
+        copy("Form", null, new String[][]{
+                {"c_name", "VARCHAR(255)", "", "名称"},
+                {"c_time", "VARCHAR(255)", "", "时间轴"},
+                {"c_total", "INT", "", "字段数"},
+                {"c_change", "INT", "", "修改数"},
+                {"c_state", "INT", "", "状态：0-进行中；1-已完成；2-已失效"},
+                {"c_create", "DATETIME", "", "创建时间"},
+                {"c_modify", "DATETIME", "", "修改时间"}
+        }, false, false);
+    }
+
+    private static void chrome() {
+        copy("Chrome", null, new String[][]{
+                {"c_key", "VARCHAR(255)", "uk", "引用key"},
+                {"c_name", "VARCHAR(255)", "", "名称"},
+                {"c_x", "INT", "", "图片X位置"},
+                {"c_y", "INT", "", "图片Y位置"},
+                {"c_width", "INT", "", "宽度"},
+                {"c_height", "INT", "", "高度"},
+                {"c_pages", "VARCHAR(255)", "", "页面集"},
+                {"c_wait", "INT", "", "等待时长，单位：秒"}
+        }, false, false);
     }
 
     private static void captcha() {
@@ -331,14 +392,14 @@ public class Ranch {
             String[][] array = list.toArray(new String[0][]);
 
             if (audit)
-                Module.parse("lpw", module, pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg), null,
-                        "org.lpw.ranch.audit", "AuditModelSupport", 36, array);
+                Module.parse("lpw", module, "org.lpw.ranch", pkg, null,
+                        "org.lpw.ranch.audit", "AuditModelSupport", array);
             else if (recycle)
-                Module.parse("lpw", module, pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg), null,
-                        "org.lpw.ranch.recycle", "RecycleModelSupport", 36, array);
+                Module.parse("lpw", module, "org.lpw.ranch", pkg, null,
+                        "org.lpw.ranch.recycle", "RecycleModelSupport", array);
             else
-                Module.parse("lpw", module, pkg == null ? "org.lpw.ranch" : ("org.lpw.ranch." + pkg), null,
-                        null, null, 36, columns);
+                Module.parse("lpw", module, "org.lpw.ranch", pkg, null,
+                        null, null, columns);
         } catch (IOException e) {
             e.printStackTrace();
         }

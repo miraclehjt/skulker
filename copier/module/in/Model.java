@@ -22,9 +22,9 @@ import ${type};
 @Component(${module}Model.NAME + ".model")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Entity(name = ${module}Model.NAME)
-@Table(name = "t<#list packages as pkg><#if (pkg_index>2)>_${pkg}</#if></#list>_${module_name}")
+@Table(name = "t_${module_name}")
 public class ${module}Model extends ${modelSupportName} {
-    static final String NAME = "<#list packages as pkg><#if (pkg_index>1||pkg_index==packages?size-1)>${pkg}.</#if></#list>${module_name?replace("_","-")}";
+    static final String NAME = "${name}";
 <#if columns?? && (columns?size>0)>
 
 <#list columns as column><#if !column.ignoreJava>

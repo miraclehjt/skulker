@@ -1,15 +1,9 @@
-<#assign prefix=""/>
-<#list packages as pkg>
-  <#if (pkg_index>2)>
-    <#assign prefix=prefix+"_"+pkg/>
-  </#if>
-</#list>
 <#assign keys=""/>
 <#assign auto=false/>
-DROP TABLE IF EXISTS t${prefix}_${module_name};
-CREATE TABLE t${prefix}_${module_name}
+DROP TABLE IF EXISTS t_${module_name};
+CREATE TABLE t_${module_name}
 (
-  c_id CHAR(${idLength}) NOT NULL COMMENT '主键',
+  c_id CHAR(36) NOT NULL COMMENT '主键',
 <#if columns?? && (columns?size>0)>
 <#list columns as column>
   ${column.name} ${column.type?upper_case} <#if column.number && !column.auto>DEFAULT 0<#else><#if column.notNull>NOT<#else>DEFAULT</#if> NULL</#if> COMMENT '${column.comment}',

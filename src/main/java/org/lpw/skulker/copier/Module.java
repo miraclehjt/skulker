@@ -23,20 +23,23 @@ public class Module {
      *
      * @param author              开发者。
      * @param module              模块名。
-     * @param pkg                 包名，不包含模块名。
+     * @param packagePrefix       包名前缀。
+     * @param packageSuffix       包名后缀。
      * @param tephra              Tephra包名，为null则使用默认（org.lpw.tephra）。
      * @param modelSupportPackage ModelSupport包名，为null则使用默认（org.lpw.tephra.dao.model）。
      * @param modelSupportName    ModelSupport类名，为null则使用默认（ModelSupport）。
-     * @param idLength            ID长度。
      * @param columns             字段集；二维数组，每行元素依次为：字段名、类型、设置（k-索引、n-不为NULL）、说明。
      * @throws IOException 未处理IO读写异常。
      */
-    public static void parse(String author, String module, String pkg, String tephra, String modelSupportPackage, String modelSupportName, int idLength, String[][] columns) throws IOException {
+    public static void parse(String author, String module, String packagePrefix, String packageSuffix, String tephra,
+                             String modelSupportPackage, String modelSupportName, String[][] columns) throws IOException {
         String out = OUT + module.toLowerCase() + "/";
         Copier.init(out);
         Map<String, Object> map = new HashMap<>();
 
         StringBuilder name = new StringBuilder();
+        if (packageSuffix != null)
+            name.append(packageSuffix);
         for (char ch : module.toCharArray()) {
             if (ch >= 'A' && ch <= 'Z') {
                 ch += 'a' - 'A';
@@ -49,20 +52,22 @@ public class Module {
         map.put("module", module);
         map.put("moduleName", module.substring(0, 1).toLowerCase() + module.substring(1));
         map.put("module_name", name.toString());
+        String pkg = packagePrefix + (packageSuffix == null ? "" : ("." + packageSuffix.toLowerCase())) + "." + module.toLowerCase();
         map.put("pkg", pkg);
         map.put("packages", pkg.split("\\."));
+        map.put("name", pkg.replaceFirst(packagePrefix, packagePrefix.substring(packagePrefix.lastIndexOf('.') + 1)));
         map.put("tephra", tephra == null ? tephra = "org.lpw.tephra" : tephra);
         map.put("modelSupportPackage", modelSupportPackage == null ? tephra + ".dao.model" : modelSupportPackage);
         map.put("modelSupportName", modelSupportName == null ? "ModelSupport" : modelSupportName);
-        map.put("idLength", idLength);
-        model(map, columns, idLength);
+        model(map, columns);
 
         for (String type : TYPES)
             FreeMarker.process(IN, type + ".java", out + module + type + ".java", map);
+        FreeMarker.process(IN, "message.properties", out + "message.properties", map);
         FreeMarker.process(IN, "create.sql", out + "create.sql", map);
     }
 
-    protected static void model(Map<String, Object> map, String[][] columns, int idLength) {
+    protected static void model(Map<String, Object> map, String[][] columns) {
         if (columns == null || columns.length == 0)
             return;
 
@@ -73,7 +78,7 @@ public class Module {
             column.setName(columns[i][0]);
             column.setField(getName(column.getName()));
             column.setMethod(column.getField().substring(0, 1).toUpperCase() + column.getField().substring(1));
-            column.setType(getColumnType(columns[i][1], idLength));
+            column.setType(getColumnType(columns[i][1]));
             column.setJavaType(getJavaType(column.getType()));
             int indexOf = column.getJavaType().lastIndexOf('.');
             if (indexOf > -1) {
@@ -115,9 +120,9 @@ public class Module {
     }
 
 
-    private static String getColumnType(String type, int idLength) {
+    private static String getColumnType(String type) {
         if (type.equalsIgnoreCase("id") || type.equalsIgnoreCase("fk"))
-            return ("CHAR(" + idLength + ")");
+            return ("CHAR(36)");
 
         if (type.equalsIgnoreCase("auto"))
             return "BIGINT AUTO_INCREMENT";
